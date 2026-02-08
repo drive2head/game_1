@@ -1,0 +1,54 @@
+name: Rebuild and Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag to deploy
+        required: true
+        default: main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout selected ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+          run_install: false
+
+      - name: Setup Node with pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: frontend
+
+      - name: Build frontend
+        run: pnpm run build
+        working-directory: frontend
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Build backend
+        run: go build -o bin/server .
+        working-directory: backend
+
+      - name: Deploy
+        run: |
+          echo "Deploy placeholder"
+          echo "Ref: ${{ inputs.ref }}"
