@@ -1,0 +1,40 @@
+---
+description: React/TypeScript frontend coding conventions
+globs: frontend/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React Frontend Conventions
+
+Before writing code, read `docs/architecture.md` for current stack constraints and technology decisions.
+
+## File structure
+
+```
+frontend/src/
+├── pages/           # One file per route (Home, Lobby, Game)
+├── components/      # Reusable UI components
+├── hooks/           # Custom hooks (useGameSocket, etc.)
+├── context/         # React Context providers
+├── types/           # TypeScript types mirroring backend models
+└── utils/           # Helper functions
+```
+
+## Naming
+
+- Components: `PascalCase.tsx` (e.g., `PlayerList.tsx`).
+- Hooks: `camelCase.ts` prefixed with `use` (e.g., `useGameSocket.ts`).
+- Types: `camelCase.ts` (e.g., `game.ts`). Type/interface names in `PascalCase`.
+- CSS: colocate with component or use CSS Modules.
+
+## Patterns
+
+- WebSocket connection wrapped in a custom hook (`useGameSocket`).
+- Incoming WS events dispatched as actions to a reducer via Context.
+- Types in `types/game.ts` must mirror `docs/data-models.md` field names exactly (camelCase JSON keys).
+- Player identity (`playerId`) stored in `sessionStorage`.
+
+## Reference
+
+Architecture details: `docs/architecture.md` (sections 5–6).
+Data models: `docs/data-models.md`.

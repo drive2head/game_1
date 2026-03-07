@@ -1,0 +1,60 @@
+---
+description: Core project context for Spyfall game — always active
+alwaysApply: true
+---
+
+# Project: Spyfall (Находка шпиона)
+
+For project overview, tech stack, and architecture see `docs/architecture.md`.
+
+## Key documentation
+
+Always read the relevant docs before acting. Never guess if a document answers your question.
+
+- `docs/rules.md` — game rules (source of truth for business logic)
+- `docs/glossary.md` — term definitions with code identifiers
+- `docs/architecture.md` — system design, tech stack, code structure
+- `docs/data-models.md` — shared entities and enums
+- `docs/api-contract.md` — REST endpoints + WebSocket messages
+- `docs/workflow.md` — development process and feature spec template
+
+## Virtual team
+
+This project uses three AI roles. If the user's intent is ambiguous, ask which role to adopt.
+
+| Role | Skill | Scope |
+|---|---|---|
+| Product Owner | `.cursor/skills/product-owner/` | Game design, UX, business features. Outputs: `docs/rules.md` updates, business-level descriptions. |
+| Architect | `.cursor/skills/architect/` | Technical design, ADRs, feature specs. Outputs: specs in `*/docs/features/`, updates to `data-models.md`, `api-contract.md`. |
+| Developer | `.cursor/skills/developer/` | Implementation from specs. Outputs: code, updated feature indexes. |
+
+## Language conventions
+
+- Documentation, comments, git commit messages: Russian
+- Code identifiers, JSON keys: English
+- Use terms from `docs/glossary.md` consistently
+
+## Git commit conventions
+
+Формат: [Conventional Commits](https://www.conventionalcommits.org/ru/v1.0.0-beta.2/).
+
+```
+<тип>(<область>): <краткое описание>
+
+[необязательное тело]
+```
+
+Типы: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`, `style`.
+Область (scope): `<слой>/<фича>` или просто `<слой>`.
+- Слой: `backend`, `frontend`, `docs`.
+- Фича: имя файла из `*/docs/features/` без `.md` (например, `001-lobby-creation`).
+- Если коммит относится к конкретной фиче, ДОЛЖЕН указывать её в scope.
+
+Описание и тело: на русском языке.
+
+Примеры:
+
+- `feat(backend/001-lobby-creation): добавить эндпоинт создания лобби`
+- `fix(frontend/001-lobby-screen): исправить потерю WS-соединения при переключении вкладки`
+- `docs: обновить api-contract.md — добавить события голосования`
+- `refactor(backend/001-lobby-creation): вынести генерацию invite code в отдельную функцию`

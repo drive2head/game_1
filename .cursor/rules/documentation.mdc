@@ -1,0 +1,35 @@
+---
+description: Documentation writing and maintenance standards
+globs: "**/docs/**/*.md"
+alwaysApply: false
+---
+
+# Documentation Standards
+
+## Terminology
+
+Always use terms from `docs/glossary.md`. If introducing a new term, add it to the glossary first.
+
+## Feature specs
+
+Follow the template in `docs/workflow.md` (section «Шаблон feature spec»). Key rules:
+- One feature per file.
+- Use RFC 2119 keywords: ДОЛЖЕН, СЛЕДУЕТ, МОЖЕТ.
+- Include concrete JSON examples for API-related features.
+- List affected files explicitly (create / modify / do not touch).
+
+## Keeping docs in sync
+
+After any code change, verify:
+1. `backend/docs/README.md` / `frontend/docs/README.md` — feature status is up to date.
+2. `docs/api-contract.md` — new or changed endpoints/events are documented.
+3. `docs/data-models.md` — new or changed entities/fields are documented.
+4. `docs/glossary.md` — new terms are added.
+
+## ADRs
+
+Architecture Decision Records go in `docs/adr/NNN-title.md`. See `docs/adr/README.md` for the template.
+
+## Language
+
+Write documentation in Russian. Code identifiers embedded in docs remain in English.
