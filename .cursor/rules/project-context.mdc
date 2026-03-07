@@ -52,6 +52,10 @@ This project uses three AI roles. If the user's intent is ambiguous, ask which r
 
 Описание и тело: на русском языке.
 
+Правило по ролям:
+- Product Owner и Architect всегда используют тип `chore` (их работа — документация и проектирование).
+- Developer использует все типы (`feat`, `fix`, `refactor`, `test` и т.д.) согласно содержанию изменений.
+
 Примеры:
 
 - `feat(backend/001-lobby-creation): добавить эндпоинт создания лобби`
