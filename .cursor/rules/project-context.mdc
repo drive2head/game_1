@@ -56,6 +56,9 @@ This project uses three AI roles. If the user's intent is ambiguous, ask which r
 - Product Owner и Architect всегда используют тип `chore` (их работа — документация и проектирование).
 - Developer использует все типы (`feat`, `fix`, `refactor`, `test` и т.д.) согласно содержанию изменений.
 
+Каждый завершённый этап работы (PO, Architect, Developer) ДОЛЖЕН заканчиваться коммитом.
+Не микро-коммиты, но логически завершённая единица работы = коммит.
+
 Примеры:
 
 - `feat(backend/001-lobby-creation): добавить эндпоинт создания лобби`
