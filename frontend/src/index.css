@@ -1,68 +1,442 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --color-bg: #0f0f1a;
+  --color-surface: #1a1a2e;
+  --color-surface-hover: #22223a;
+  --color-primary: #6c63ff;
+  --color-primary-hover: #5a52d5;
+  --color-danger: #e74c4c;
+  --color-danger-hover: #c53030;
+  --color-text: #eaeaf0;
+  --color-text-muted: #8888a0;
+  --color-border: #2a2a40;
+  --color-success: #48c774;
+  --color-warning: #ffaa2c;
+  --color-spy: #e74c4c;
+  --color-regular: #48c774;
+  --radius: 12px;
+  --radius-sm: 8px;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.page {
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem 1.5rem;
+}
+
+/* --- Typography --- */
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+/* --- Card --- */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+/* --- Forms --- */
+
+label {
+  display: block;
+  font-size: 0.85rem;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  color: var(--color-text-muted);
+  margin-bottom: 0.3rem;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+input[type="text"] {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.75rem;
+}
+
+input[type="text"]:focus {
+  border-color: var(--color-primary);
+}
+
+input[type="text"]::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* --- Buttons --- */
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  text-align: center;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-border);
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  width: auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+/* --- Divider --- */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* --- Messages --- */
+
+.error-message {
+  margin-top: 1rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(231, 76, 76, 0.12);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.warning-message {
+  padding: 0.5rem 0.85rem;
+  background: rgba(255, 170, 44, 0.12);
+  color: var(--color-warning);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.reminder {
+  text-align: center;
+  color: var(--color-warning);
+  font-weight: 600;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+/* --- Lobby --- */
+
+.lobby-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.lobby-header h2 {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.room-code {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+}
+
+.lobby-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.lobby-actions .btn {
+  flex: 1;
+}
+
+/* --- Player list --- */
+
+.player-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.player-item.offline {
+  opacity: 0.5;
+}
+
+.online-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.online-dot.on {
+  background-color: var(--color-success);
+}
+
+.online-dot.off {
+  background-color: var(--color-text-muted);
+}
+
+.player-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.admin-badge {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.ready-status {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ready-status.ready {
+  color: var(--color-success);
+}
+
+.ready-status.not-ready {
+  color: var(--color-text-muted);
+}
+
+/* --- Game --- */
+
+.game-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.game-header h2 {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.role-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.role-card .role-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.role-card h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.role-card p {
+  font-size: 0.95rem;
+}
+
+.role-spy {
+  background: linear-gradient(135deg, rgba(231, 76, 76, 0.15), rgba(231, 76, 76, 0.05));
+  border: 1px solid var(--color-spy);
+}
+
+.role-spy h2 {
+  color: var(--color-spy);
+}
+
+.role-regular {
+  background: linear-gradient(135deg, rgba(72, 199, 116, 0.15), rgba(72, 199, 116, 0.05));
+  border: 1px solid var(--color-regular);
+}
+
+.role-regular h2 {
+  color: var(--color-regular);
+}
+
+/* --- Turn order --- */
+
+.turn-order {
+  margin: 1.5rem 0;
+}
+
+.turn-order h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.turn-order ol {
+  list-style: none;
+  counter-reset: turn;
+}
+
+.turn-order li {
+  counter-increment: turn;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+}
+
+.turn-order li::before {
+  content: counter(turn) ". ";
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.turn-item.active-turn {
+  background: var(--color-surface);
+  font-weight: 600;
+}
+
+.turn-arrow {
+  color: var(--color-primary);
+}
+
+/* --- Player chips (game screen) --- */
+
+.game-players {
+  margin-top: 1.5rem;
+}
+
+.game-players h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.player-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.player-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.player-chip .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.player-chip .dot.on {
+  background: var(--color-success);
+}
+
+.player-chip .dot.off {
+  background: var(--color-text-muted);
+}
+
+.player-chip.offline {
+  opacity: 0.5;
 }
