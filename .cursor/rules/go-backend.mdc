@@ -1,0 +1,35 @@
+---
+description: Go backend coding conventions
+globs: backend/**/*.go
+alwaysApply: false
+---
+
+# Go Backend Conventions
+
+Before writing code, read `docs/architecture.md` for current stack constraints and technology decisions.
+
+## Package structure
+
+```
+backend/
+├── main.go          # Entry point, server init, route registration
+├── game/            # Domain logic (lobby, session, locations)
+├── handler/         # HTTP and WebSocket handlers
+└── hub/             # WebSocket hub — connection management, broadcast
+```
+
+- `game/` must not import `net/http`. It contains pure domain logic.
+- `handler/` bridges HTTP/WS to domain logic via method calls on `game` types.
+
+## Coding patterns
+
+- JSON struct tags: `camelCase` (e.g., `json:"playerId"`).
+- Errors: return typed sentinel errors from `game/`; handlers translate them to HTTP status codes.
+- Concurrency: protect shared `LobbyStore` with `sync.RWMutex`. Lock scopes must be minimal.
+- UUIDs: use `crypto/rand` for generation, not `math/rand`.
+- Handler registration follows the pattern in `main.go` (`mux.HandleFunc`).
+
+## Reference
+
+Architecture details: `docs/architecture.md` (section 5).
+Data models: `docs/data-models.md`.

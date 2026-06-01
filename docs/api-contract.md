@@ -80,8 +80,12 @@
 | 400 | `{"error": "invalid_nickname"}` | Никнейм пустой или длиннее 20 символов. |
 | 404 | `{"error": "lobby_not_found"}` | Лобби с таким кодом не существует. |
 | 409 | `{"error": "lobby_full"}` | В лобби уже `maxPlayers` игроков. |
-| 409 | `{"error": "game_in_progress"}` | Сессия уже запущена, присоединение невозможно. |
+| 409 | `{"error": "game_in_progress"}` | Сессия уже запущена и никнейм не соответствует отключённому игроку. |
 | 409 | `{"error": "nickname_taken"}` | Никнейм уже занят другим игроком в этом лобби. |
+
+**Переподключение:** если `state == "in_game"` и `nickname` совпадает с `nickname`
+отключённого игрока (`online == false`), сервер возвращает существующий `playerId`
+этого игрока (вместо создания нового). Это позволяет игроку восстановить сессию.
 
 ---
 
@@ -138,6 +142,7 @@ ws://<host>/api/lobbies/{code}/ws?playerId={playerId}
 
 | type | payload | Описание |
 |---|---|---|
+| `leave_lobby` | `{}` | Игрок покидает лобби (только фаза `waiting`). |
 | `player_ready` | `{ "ready": boolean }` | Игрок меняет статус готовности. |
 | `update_settings` | `{ "settings": LobbySettings }` | Администратор обновляет настройки (только admin). |
 | `kick_player` | `{ "targetId": string }` | Администратор кикает игрока (только admin). |
@@ -159,6 +164,7 @@ ws://<host>/api/lobbies/{code}/ws?playerId={playerId}
 | type | payload | Когда |
 |---|---|---|
 | `lobby_updated` | `{ "lobby": Lobby }` | Любое изменение состояния лобби (игрок зашёл/вышел, настройки, ready). |
+| `player_left` | `{ "playerId": string }` | Игрок покинул лобби до старта. |
 | `game_started` | `{ "sessionId": string, "turnOrder": string[], "phase": "question", "currentTurnIndex": 0 }` | Сессия началась. |
 | `turn_changed` | `{ "currentTurnIndex": integer }` | Ход перешёл к следующему игроку. |
 | `vote_proposal_started` | `{ "initiatorId": string, "threshold": integer }` | Инициировано предложение голосования. |

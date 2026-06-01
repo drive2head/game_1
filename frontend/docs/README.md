@@ -10,4 +10,5 @@
 
 | # | Название | Статус | Файл |
 |---|---|---|---|
-| — | (пока нет фич) | — | — |
+| 001 | Экраны создания, подключения и ожидания в лобби | draft | [features/001-lobby-screens.md](features/001-lobby-screens.md) |
+| 002 | Экран игры — роль и локация | draft | [features/002-game-screen.md](features/002-game-screen.md) |
